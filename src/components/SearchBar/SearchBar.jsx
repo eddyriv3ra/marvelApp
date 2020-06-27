@@ -40,12 +40,7 @@ const SearchBar = (props) => {
     <InputContainer>
       <Image src="/marvelLogo.png" alt="marvel" />
       <Icon className="fa fa-search fa-2x" />
-      <InputBar
-        type="text"
-        className="input"
-        onChange={handleChange}
-        placeholder="Search..."
-      />
+      <InputBar type="text" onChange={handleChange} placeholder="Search..." />
     </InputContainer>
   );
 };

@@ -1,17 +1,16 @@
 import React from "react";
 import SearchBar from "./components/SearchBar";
+import CardsContainer from "./components/CardsContainer";
 import styled from "styled-components";
 
-const AppContainer = styled.div`
-  margin: 0;
-  padding: 0;
-`;
+const AppContainer = styled.div``;
 
 const App = () => {
   return (
-    <AppContainer>
+    <div>
       <SearchBar />
-    </AppContainer>
+      <CardsContainer />
+    </div>
   );
 };
 
