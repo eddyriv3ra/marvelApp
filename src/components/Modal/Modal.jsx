@@ -31,16 +31,19 @@ const Times = styled.i`
   position: absolute;
   top: 1rem;
   right: 1rem;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Title = styled.h2``;
 
-const Modal = ({ title }) => {
+const Modal = ({ title, closePopup }) => {
   return (
     <Wrapper>
       <ModalBox>
         <Title>{title}</Title>
-        <Times className="fa fa-times fa-lg" aria-hidden="true" />
+        <Times className="fa fa-times fa-lg" onClick={closePopup} />
       </ModalBox>
     </Wrapper>
   );
@@ -48,10 +51,12 @@ const Modal = ({ title }) => {
 
 Modal.propTypes = {
   title: PropTypes.string,
+  closePopup: PropTypes.func,
 };
 
 Modal.defaultProps = {
   title: "",
+  closePopup: () => {},
 };
 
 export default Modal;

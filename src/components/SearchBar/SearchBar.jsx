@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { CharactersContext } from "../../Store";
+import { getDataByKeyword } from "../../services/apis";
 import styled from "styled-components";
-import axios from "axios";
+import { CancelToken, isCancel } from "../../services/source";
 
 const InputContainer = styled.div`
   display: block;
@@ -38,16 +39,13 @@ const SearchBar = () => {
   const componentJustMounted = useRef(true);
 
   useEffect(() => {
-    const source = axios.CancelToken.source();
+    const source = CancelToken.source();
     const getData = async () => {
-      const url = `https://gateway.marvel.com:443/v1/public/characters?nameStartsWith=${keyword}&limit=8&ts=1&apikey=508dfef6ad8ecc046b84be570d8ab372&hash=afa0ce68cff53edcda03339bc63595aa`;
       try {
-        const result = await axios.get(url, {
-          cancelToken: source.token,
-        });
-        setCharacters(result.data.data.results);
+        const result = await getDataByKeyword(keyword, source);
+        setCharacters(result);
       } catch (error) {
-        if (axios.isCancel(error)) {
+        if (isCancel(error)) {
           console.log(`request cancelled:${error}`);
         } else {
           console.log("another error happened:" + error.message);
@@ -68,8 +66,6 @@ const SearchBar = () => {
     const searchKeyword = e.target.value;
     setKeyword(searchKeyword);
   };
-
-  console.log(keyword);
 
   return (
     <InputContainer>

@@ -9,6 +9,10 @@ const CardComponent = styled.div`
   height: 25rem;
   margin-left: 1rem;
   position: relative;
+  box-sizing: border-box;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Thumbnail = styled.img`
@@ -26,14 +30,17 @@ const Name = styled.span`
   font-weight: bold;
 `;
 
-const Card = ({ thumbnail, name }) => {
+const Card = ({ thumbnail, name, comics }) => {
   const [showPopup, setShowPopup] = useState(false);
 
   const showPortal = () => {
     setShowPopup(true);
   };
 
-  console.log(showPopup);
+  const closePopup = (e) => {
+    e.stopPropagation();
+    setShowPopup(false);
+  };
 
   return (
     <CardComponent onClick={showPortal}>
@@ -41,7 +48,7 @@ const Card = ({ thumbnail, name }) => {
       <Name>{name}</Name>
       {showPopup && (
         <Portal>
-          <Modal title={name}></Modal>
+          <Modal title={name} closePopup={closePopup} />
         </Portal>
       )}
     </CardComponent>

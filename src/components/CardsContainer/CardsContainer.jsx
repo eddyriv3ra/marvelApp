@@ -1,9 +1,9 @@
 import React, { useEffect, useContext } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import axios from "axios";
 import Card from "../Card";
 import { CharactersContext } from "../../Store";
+import { getInitialData } from "../../services/apis";
 
 const CardsContainerStyle = styled.div`
   background-color: rgb(246, 247, 249);
@@ -19,14 +19,11 @@ const CardsContainer = (props) => {
   const [characters, setCharacters] = useContext(CharactersContext);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const offset = Math.floor(Math.random() * 1485) + 1;
-      const urlAPI = `https://gateway.marvel.com:443/v1/public/characters?limit=8&offset=${offset}&ts=1&apikey=508dfef6ad8ecc046b84be570d8ab372&hash=afa0ce68cff53edcda03339bc63595aa`;
-      const result = await axios(urlAPI);
-      console.log(result.data.data.results);
-      setCharacters(result.data.data.results);
+    const fecthData = async () => {
+      const result = await getInitialData();
+      setCharacters(result);
     };
-    fetchData();
+    fecthData();
   }, []);
 
   return (
@@ -37,6 +34,7 @@ const CardsContainer = (props) => {
             key={character.id}
             thumbnail={character.thumbnail}
             name={character.name}
+            comics={character.comics.items}
           />
         );
       })}
