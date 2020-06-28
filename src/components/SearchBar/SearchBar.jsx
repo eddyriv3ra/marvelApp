@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
+import { CharactersContext } from "../../Store";
 import styled from "styled-components";
 import axios from "axios";
 
@@ -32,6 +33,7 @@ const Image = styled.img`
 `;
 
 const SearchBar = () => {
+  const [_, setCharacters] = useContext(CharactersContext);
   const [keyword, setKeyword] = useState("");
   const componentJustMounted = useRef(true);
 
@@ -43,7 +45,7 @@ const SearchBar = () => {
         const result = await axios.get(url, {
           cancelToken: source.token,
         });
-        console.log(result);
+        setCharacters(result.data.data.results);
       } catch (error) {
         if (axios.isCancel(error)) {
           console.log(`request cancelled:${error}`);

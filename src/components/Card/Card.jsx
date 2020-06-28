@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import Portal from "../Portal";
+import Modal from "../Modal";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
@@ -25,10 +27,23 @@ const Name = styled.span`
 `;
 
 const Card = ({ thumbnail, name }) => {
+  const [showPopup, setShowPopup] = useState(false);
+
+  const showPortal = () => {
+    setShowPopup(true);
+  };
+
+  console.log(showPopup);
+
   return (
-    <CardComponent>
+    <CardComponent onClick={showPortal}>
       <Thumbnail src={`${thumbnail.path}.${thumbnail.extension}`} alt="" />
       <Name>{name}</Name>
+      {showPopup && (
+        <Portal>
+          <Modal title={name}></Modal>
+        </Portal>
+      )}
     </CardComponent>
   );
 };

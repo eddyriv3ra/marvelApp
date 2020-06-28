@@ -23,7 +23,7 @@ const CardsContainer = (props) => {
       const offset = Math.floor(Math.random() * 1485) + 1;
       const urlAPI = `https://gateway.marvel.com:443/v1/public/characters?limit=8&offset=${offset}&ts=1&apikey=508dfef6ad8ecc046b84be570d8ab372&hash=afa0ce68cff53edcda03339bc63595aa`;
       const result = await axios(urlAPI);
-      console.log(result);
+      console.log(result.data.data.results);
       setCharacters(result.data.data.results);
     };
     fetchData();
