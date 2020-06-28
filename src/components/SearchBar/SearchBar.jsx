@@ -1,6 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
+import axios from "axios";
 
 const InputContainer = styled.div`
   display: block;
@@ -31,10 +31,43 @@ const Image = styled.img`
   left: 1rem;
 `;
 
-const SearchBar = (props) => {
+const SearchBar = () => {
+  const [keyword, setKeyword] = useState("");
+  const componentJustMounted = useRef(true);
+
+  useEffect(() => {
+    const source = axios.CancelToken.source();
+    const getData = async () => {
+      const url = `https://gateway.marvel.com:443/v1/public/characters?nameStartsWith=${keyword}&limit=8&ts=1&apikey=508dfef6ad8ecc046b84be570d8ab372&hash=afa0ce68cff53edcda03339bc63595aa`;
+      try {
+        const result = await axios.get(url, {
+          cancelToken: source.token,
+        });
+        console.log(result);
+      } catch (error) {
+        if (axios.isCancel(error)) {
+          console.log(`request cancelled:${error}`);
+        } else {
+          console.log("another error happened:" + error.message);
+        }
+      }
+    };
+    if (!componentJustMounted.current && keyword.length > 0) {
+      getData();
+    }
+    componentJustMounted.current = false;
+
+    return () => {
+      source.cancel();
+    };
+  }, [keyword]);
+
   const handleChange = (e) => {
-    console.log(e.target.value);
+    const searchKeyword = e.target.value;
+    setKeyword(searchKeyword);
   };
+
+  console.log(keyword);
 
   return (
     <InputContainer>
@@ -44,7 +77,5 @@ const SearchBar = (props) => {
     </InputContainer>
   );
 };
-
-SearchBar.propTypes = {};
 
 export default SearchBar;

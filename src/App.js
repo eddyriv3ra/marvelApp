@@ -1,16 +1,13 @@
-import React from "react";
+import React, { Fragment } from "react";
 import SearchBar from "./components/SearchBar";
 import CardsContainer from "./components/CardsContainer";
-import styled from "styled-components";
-
-const AppContainer = styled.div``;
 
 const App = () => {
   return (
-    <div>
+    <Fragment>
       <SearchBar />
       <CardsContainer />
-    </div>
+    </Fragment>
   );
 };
 
