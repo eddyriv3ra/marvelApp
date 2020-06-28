@@ -30,7 +30,7 @@ const Name = styled.span`
   font-weight: bold;
 `;
 
-const Card = ({ thumbnail, name, comics }) => {
+const Card = ({ thumbnail, name, characterId }) => {
   const [showPopup, setShowPopup] = useState(false);
 
   const showPortal = () => {
@@ -48,7 +48,11 @@ const Card = ({ thumbnail, name, comics }) => {
       <Name>{name}</Name>
       {showPopup && (
         <Portal>
-          <Modal title={name} closePopup={closePopup} />
+          <Modal
+            title={name}
+            closePopup={closePopup}
+            characterId={characterId}
+          />
         </Portal>
       )}
     </CardComponent>

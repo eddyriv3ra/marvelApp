@@ -35,6 +35,7 @@ const CardsContainer = (props) => {
             thumbnail={character.thumbnail}
             name={character.name}
             comics={character.comics.items}
+            characterId={character.id}
           />
         );
       })}

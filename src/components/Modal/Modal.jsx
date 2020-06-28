@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import { getComicsByCharaterId } from "../../services/apis";
+import ComicList from "../ComicList";
 
 const Wrapper = styled.div`
   display: flex;
@@ -12,7 +14,7 @@ const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   z-index: 100;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.5);
 `;
 
 const ModalBox = styled.div`
@@ -25,6 +27,7 @@ const ModalBox = styled.div`
   border-radius: 20px;
   padding: 1rem 2rem;
   position: relative;
+  overflow-y: hidden;
 `;
 
 const Times = styled.i`
@@ -38,12 +41,29 @@ const Times = styled.i`
 
 const Title = styled.h2``;
 
-const Modal = ({ title, closePopup }) => {
+const Modal = ({ title, closePopup, characterId }) => {
+  const [comics, setComics] = useState([]);
+
+  useEffect(() => {
+    const getDataById = async () => {
+      try {
+        const comicsData = await getComicsByCharaterId(characterId);
+        setComics(comicsData);
+      } catch (e) {
+        throw new Error(e.message);
+      }
+    };
+    getDataById();
+  }, [characterId]);
+
   return (
     <Wrapper>
       <ModalBox>
-        <Title>{title}</Title>
-        <Times className="fa fa-times fa-lg" onClick={closePopup} />
+        <div>
+          <Title>{title}</Title>
+          <Times className="fa fa-times fa-lg" onClick={closePopup} />
+        </div>
+        <ComicList comics={comics} />;
       </ModalBox>
     </Wrapper>
   );
