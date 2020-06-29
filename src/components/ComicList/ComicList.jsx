@@ -10,7 +10,7 @@ const List = styled.ul`
 `;
 
 const ListContainer = styled.div`
-  height: 89%;
+  height: 85%;
   overflow-y: auto;
 `;
 

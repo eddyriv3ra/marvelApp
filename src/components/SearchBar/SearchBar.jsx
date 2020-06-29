@@ -3,11 +3,12 @@ import { CharactersContext } from "../../Store";
 import { getDataByKeyword } from "../../services/apis";
 import styled from "styled-components";
 import { CancelToken, isCancel } from "../../services/source";
+import Star from "../Star";
 
 const InputContainer = styled.div`
   display: block;
   width: 87%;
-  position: relative;
+  position: fixed;
 `;
 
 const Icon = styled.i`
@@ -72,6 +73,7 @@ const SearchBar = () => {
       <Image src="/marvelLogo.png" alt="marvel" />
       <Icon className="fa fa-search fa-2x" />
       <InputBar type="text" onChange={handleChange} placeholder="Search..." />
+      <Star fill="black" right="-9rem" />
     </InputContainer>
   );
 };

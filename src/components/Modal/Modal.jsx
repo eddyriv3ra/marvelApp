@@ -63,7 +63,7 @@ const Modal = ({ title, closePopup, characterId }) => {
           <Title>{title}</Title>
           <Times className="fa fa-times fa-lg" onClick={closePopup} />
         </div>
-        <ComicList comics={comics} />;
+        <ComicList comics={comics} />
       </ModalBox>
     </Wrapper>
   );

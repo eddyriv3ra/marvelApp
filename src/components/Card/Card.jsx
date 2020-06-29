@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Portal from "../Portal";
 import Modal from "../Modal";
+import Star from "../Star";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
@@ -8,6 +9,7 @@ const CardComponent = styled.div`
   width: 20%;
   height: 25rem;
   margin-left: 1rem;
+  margin-bottom: 3rem;
   position: relative;
   box-sizing: border-box;
   &:hover {
@@ -30,7 +32,7 @@ const Name = styled.span`
   font-weight: bold;
 `;
 
-const Card = ({ thumbnail, name, characterId }) => {
+const Card = ({ thumbnail, name, characterId, addOrRemoveCharacter }) => {
   const [showPopup, setShowPopup] = useState(false);
 
   const showPortal = () => {
@@ -46,6 +48,7 @@ const Card = ({ thumbnail, name, characterId }) => {
     <CardComponent onClick={showPortal}>
       <Thumbnail src={`${thumbnail.path}.${thumbnail.extension}`} alt="" />
       <Name>{name}</Name>
+      <Star handleStarClick={addOrRemoveCharacter} id={characterId} />
       {showPopup && (
         <Portal>
           <Modal

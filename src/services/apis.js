@@ -13,7 +13,7 @@ export const getInitialData = async () => {
 };
 
 export const getDataByKeyword = async (keyword, source) => {
-  const urlAPI = `${marvelUrl}?nameStartsWith=${keyword}&limit=8${hash}`;
+  const urlAPI = `${marvelUrl}?nameStartsWith=${keyword}${hash}`;
   const result = await axios.get(urlAPI, {
     cancelToken: source.token,
   });
