@@ -32,7 +32,13 @@ const Name = styled.span`
   font-weight: bold;
 `;
 
-const Card = ({ thumbnail, name, characterId, addOrRemoveCharacter }) => {
+const Card = ({
+  thumbnail,
+  name,
+  characterId,
+  handleClick,
+  favoriteCharacters,
+}) => {
   const [showPopup, setShowPopup] = useState(false);
 
   const showPortal = () => {
@@ -44,11 +50,30 @@ const Card = ({ thumbnail, name, characterId, addOrRemoveCharacter }) => {
     setShowPopup(false);
   };
 
+  const isFavoriteCharater = () =>
+    favoriteCharacters.some((favCharacter) => {
+      return favCharacter.id === characterId;
+    });
+
+  const starStyle = isFavoriteCharater()
+    ? {
+        fill: "white",
+        right: "1rem",
+        top: "1rem",
+      }
+    : {
+        fill: "none",
+        stroke: "white",
+        strokeWidth: 25,
+        right: "1rem",
+        top: "1rem",
+      };
+
   return (
     <CardComponent onClick={showPortal}>
       <Thumbnail src={`${thumbnail.path}.${thumbnail.extension}`} alt="" />
       <Name>{name}</Name>
-      <Star handleStarClick={addOrRemoveCharacter} id={characterId} />
+      <Star onClick={handleClick} id={characterId} style={starStyle} />
       {showPopup && (
         <Portal>
           <Modal

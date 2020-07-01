@@ -46,7 +46,8 @@ const CardsContainer = (props) => {
             name={character.name}
             comics={character.comics.items}
             characterId={character.id}
-            addOrRemoveCharacter={getCharaterData}
+            handleClick={getCharaterData}
+            favoriteCharacters={favoriteCharacters}
           />
         );
       })}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
-import { CharactersContext } from "../../Store";
+import { CharactersContext, FavoriteCharactersContext } from "../../Store";
 import { getDataByKeyword } from "../../services/apis";
 import styled from "styled-components";
 import { CancelToken, isCancel } from "../../services/source";
@@ -36,7 +36,11 @@ const Image = styled.img`
 
 const SearchBar = () => {
   const [_, setCharacters] = useContext(CharactersContext);
+  const [favoriteCharacters, , initialCharacters] = useContext(
+    FavoriteCharactersContext
+  );
   const [keyword, setKeyword] = useState("");
+  const [favoriteList, setFavoriteList] = useState(false);
   const componentJustMounted = useRef(true);
 
   useEffect(() => {
@@ -55,6 +59,7 @@ const SearchBar = () => {
     };
     if (!componentJustMounted.current && keyword.length > 0) {
       getData();
+      setFavoriteList(false);
     }
     componentJustMounted.current = false;
 
@@ -68,12 +73,38 @@ const SearchBar = () => {
     setKeyword(searchKeyword);
   };
 
+  const showFavoriteCharacters = () => {
+    if (!favoriteList) {
+      setCharacters(favoriteCharacters);
+      setFavoriteList(true);
+    } else {
+      setCharacters(initialCharacters);
+      setFavoriteList(false);
+    }
+  };
+
+  const customStyle = favoriteList
+    ? {
+        stroke: "black",
+        strokeWidth: 25,
+        fill: "black",
+        right: "-6rem",
+        top: "0.6rem",
+      }
+    : {
+        stroke: "black",
+        strokeWidth: 25,
+        fill: "white",
+        right: "-6rem",
+        top: "0.6rem",
+      };
+
   return (
     <InputContainer>
       <Image src="/marvelLogo.png" alt="marvel" />
       <Icon className="fa fa-search fa-2x" />
       <InputBar type="text" onChange={handleChange} placeholder="Search..." />
-      <Star fill="black" right="-9rem" />
+      <Star onClick={showFavoriteCharacters} style={customStyle} />
     </InputContainer>
   );
 };
