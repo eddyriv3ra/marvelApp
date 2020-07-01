@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 
 const CardComponent = styled.div`
   width: 20%;
-  height: 25rem;
+  height: 27rem;
   margin-left: 1rem;
   margin-bottom: 3rem;
   position: relative;

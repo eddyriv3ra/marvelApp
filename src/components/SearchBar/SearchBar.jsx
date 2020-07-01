@@ -7,30 +7,30 @@ import Star from "../Star";
 
 const InputContainer = styled.div`
   display: block;
-  width: 87%;
-  position: fixed;
+  position: relative;
+  width: 96%;
+  margin: 1rem;
 `;
 
 const Icon = styled.i`
   position: absolute;
-  padding: 1rem;
-  height: 2rem;
+  height: 1.5rem;
   left: 8rem;
+  top: 0.5rem;
   color: rgb(226, 226, 226);
 `;
 
 const InputBar = styled.input`
   width: 100%;
-  height: 2rem;
-  padding: 1rem;
-  font-size: 1.7rem;
+  height: 3rem;
+  font-size: 1.4rem;
   padding-left: 12rem;
 `;
 
 const Image = styled.img`
   width: 5rem;
   position: absolute;
-  top: 1rem;
+  top: 0.5rem;
   left: 1rem;
 `;
 
@@ -88,15 +88,15 @@ const SearchBar = () => {
         stroke: "black",
         strokeWidth: 25,
         fill: "black",
-        right: "-6rem",
-        top: "0.6rem",
+        right: "1rem",
+        top: "15%",
       }
     : {
         stroke: "black",
         strokeWidth: 25,
         fill: "white",
-        right: "-6rem",
-        top: "0.6rem",
+        right: "2rem",
+        top: "15%",
       };
 
   return (

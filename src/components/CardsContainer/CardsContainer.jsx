@@ -6,7 +6,6 @@ import { CharactersContext, FavoriteCharactersContext } from "../../Store";
 import { getInitialData } from "../../services/apis";
 
 const CardsContainerStyle = styled.div`
-  background-color: rgb(246, 247, 249);
   height: 55rem;
   width: 100%;
   display: flex;

@@ -26,8 +26,8 @@ const Star = (props) => {
       id="Capa_1"
       x="0px"
       y="0px"
-      width="50px"
-      height="50px"
+      width="2rem"
+      height="2rem"
       viewBox="0 0 612 612"
       right={props.right}
       styleProps={props.style}
