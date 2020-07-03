@@ -48,12 +48,13 @@ const CardsContainer = (props) => {
   return (
     <CardsContainerStyle>
       {characters.map((character) => {
+        const Title = character.name ? character.name : character.title;
+
         return (
           <Card
             key={character.id}
             thumbnail={character.thumbnail}
-            name={character.name}
-            comics={character.comics.items}
+            name={Title}
             characterId={character.id}
             handleClick={getCharaterData}
             favoriteCharacters={favoriteCharacters}

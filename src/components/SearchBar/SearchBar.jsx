@@ -62,7 +62,7 @@ const SearchBar = () => {
         }
       }
     };
-    if (query.length > 0) {
+    if (Object.values(query).length > 0) {
       getData();
       setFavoriteList(false);
     }
@@ -75,13 +75,22 @@ const SearchBar = () => {
 
   const handleChange = (e) => {
     const searchKeyword = e.target.value;
-    history.replace(`/?character=${searchKeyword}`);
-    setKeyword(searchKeyword);
+    const isURL = searchKeyword.split("/")[5];
+    if (isURL) {
+      history.replace(`/?comic=${isURL}`);
+      setKeyword(searchKeyword);
+    } else {
+      history.replace(`/?character=${searchKeyword}`);
+      setKeyword(searchKeyword);
+    }
   };
 
   const getParams = () => {
     const searchParams = new URLSearchParams(search);
-    return searchParams.get("character") || "";
+    return {
+      character: searchParams.get("character") || "",
+      comic: searchParams.get("comic") || "",
+    };
   };
 
   const showFavoriteCharacters = () => {
@@ -118,7 +127,7 @@ const SearchBar = () => {
         type="text"
         onChange={handleChange}
         placeholder="Search..."
-        defaultValue={getParams() || ""}
+        defaultValue={getParams().character || ""}
       />
       <Star onClick={showFavoriteCharacters} style={customStyle} />
     </InputContainer>
