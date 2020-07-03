@@ -2,6 +2,7 @@ import React, { useEffect, useContext } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import Card from "../Card";
+import { useHistory, useParams, useLocation } from "react-router-dom";
 import { CharactersContext, FavoriteCharactersContext } from "../../Store";
 import { getInitialData } from "../../services/apis";
 
@@ -19,14 +20,23 @@ const CardsContainer = (props) => {
   const [favoriteCharacters, setFavoriteCharacters] = useContext(
     FavoriteCharactersContext
   );
+  const { search } = useLocation();
 
   useEffect(() => {
+    const query = getParams();
     const fecthData = async () => {
       const result = await getInitialData();
       setCharacters(result);
     };
-    fecthData();
+    if (query.length === 0) {
+      fecthData();
+    }
   }, []);
+
+  const getParams = () => {
+    const searchParams = new URLSearchParams(search);
+    return searchParams.get("character") || "";
+  };
 
   const getCharaterData = (characterId) => {
     const characterData = characters.find((character) => {

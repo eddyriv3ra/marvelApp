@@ -1,36 +1,9 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import Portal from "../Portal";
 import Modal from "../Modal";
 import Star from "../Star";
-import styled from "styled-components";
-import PropTypes from "prop-types";
-
-const CardComponent = styled.div`
-  width: 20%;
-  height: 27rem;
-  margin-left: 1rem;
-  margin-bottom: 3rem;
-  position: relative;
-  box-sizing: border-box;
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-const Thumbnail = styled.img`
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
-`;
-
-const Name = styled.span`
-  position: absolute;
-  bottom: 1rem;
-  left: 1rem;
-  font-size: 2rem;
-  color: white;
-  font-weight: bold;
-`;
+import { CardComponent, Thumbnail, Name } from "./CardStyle";
 
 const Card = ({
   thumbnail,
@@ -64,7 +37,7 @@ const Card = ({
     : {
         fill: "none",
         stroke: "white",
-        strokeWidth: 25,
+        strokeWidth: 50,
         right: "1rem",
         top: "1rem",
       };

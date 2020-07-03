@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import { CharactersContext, FavoriteCharactersContext } from "../../Store";
 import { getDataByKeyword } from "../../services/apis";
 import styled from "styled-components";
+import { useHistory, useParams, useLocation } from "react-router-dom";
 import { CancelToken, isCancel } from "../../services/source";
 import Star from "../Star";
 
@@ -35,6 +36,9 @@ const Image = styled.img`
 `;
 
 const SearchBar = () => {
+  const history = useHistory();
+  const { search } = useLocation();
+
   const [_, setCharacters] = useContext(CharactersContext);
   const [favoriteCharacters, , initialCharacters] = useContext(
     FavoriteCharactersContext
@@ -44,10 +48,11 @@ const SearchBar = () => {
   const componentJustMounted = useRef(true);
 
   useEffect(() => {
+    const query = getParams();
     const source = CancelToken.source();
     const getData = async () => {
       try {
-        const result = await getDataByKeyword(keyword, source);
+        const result = await getDataByKeyword(query, source);
         setCharacters(result);
       } catch (error) {
         if (isCancel(error)) {
@@ -57,7 +62,7 @@ const SearchBar = () => {
         }
       }
     };
-    if (!componentJustMounted.current && keyword.length > 0) {
+    if (query.length > 0) {
       getData();
       setFavoriteList(false);
     }
@@ -70,7 +75,13 @@ const SearchBar = () => {
 
   const handleChange = (e) => {
     const searchKeyword = e.target.value;
+    history.replace(`/?character=${searchKeyword}`);
     setKeyword(searchKeyword);
+  };
+
+  const getParams = () => {
+    const searchParams = new URLSearchParams(search);
+    return searchParams.get("character") || "";
   };
 
   const showFavoriteCharacters = () => {
@@ -103,7 +114,12 @@ const SearchBar = () => {
     <InputContainer>
       <Image src="/marvelLogo.png" alt="marvel" />
       <Icon className="fa fa-search fa-2x" />
-      <InputBar type="text" onChange={handleChange} placeholder="Search..." />
+      <InputBar
+        type="text"
+        onChange={handleChange}
+        placeholder="Search..."
+        defaultValue={getParams() || ""}
+      />
       <Star onClick={showFavoriteCharacters} style={customStyle} />
     </InputContainer>
   );
