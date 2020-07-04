@@ -3,10 +3,12 @@ import { useLocalStorage } from "./utils/utils";
 
 export const CharactersContext = createContext();
 export const FavoriteCharactersContext = createContext();
+export const ShowFavoriteListContext = createContext();
 
 const Store = ({ children }) => {
   const [characters, setCharacters] = useState([]);
   const [initialCharacter, setInitialCharacters] = useState([]);
+  const [showFavoriteList, setShowFavoriteList] = useState(false);
   const [favoriteCharacters, setFavoriteCharacters] = useLocalStorage(
     "favCharacters",
     []
@@ -19,9 +21,18 @@ const Store = ({ children }) => {
   return (
     <CharactersContext.Provider value={[characters, setCharacters]}>
       <FavoriteCharactersContext.Provider
-        value={[favoriteCharacters, setFavoriteCharacters, initialCharacter]}
+        value={[
+          favoriteCharacters,
+          setFavoriteCharacters,
+          initialCharacter,
+          setInitialCharacters,
+        ]}
       >
-        {children}
+        <ShowFavoriteListContext.Provider
+          value={[showFavoriteList, setShowFavoriteList]}
+        >
+          {children}
+        </ShowFavoriteListContext.Provider>
       </FavoriteCharactersContext.Provider>
     </CharactersContext.Provider>
   );

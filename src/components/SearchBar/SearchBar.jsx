@@ -1,5 +1,9 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
-import { CharactersContext, FavoriteCharactersContext } from "../../Store";
+import {
+  CharactersContext,
+  FavoriteCharactersContext,
+  ShowFavoriteListContext,
+} from "../../Store";
 import { getDataByKeyword } from "../../services/apis";
 import styled from "styled-components";
 import { useHistory, useParams, useLocation } from "react-router-dom";
@@ -40,11 +44,16 @@ const SearchBar = () => {
   const { search } = useLocation();
 
   const [_, setCharacters] = useContext(CharactersContext);
-  const [favoriteCharacters, , initialCharacters] = useContext(
-    FavoriteCharactersContext
+  const [
+    favoriteCharacters,
+    ,
+    initialCharacters,
+    setInitialCharacters,
+  ] = useContext(FavoriteCharactersContext);
+  const [showFavoriteList, setShowFavoriteList] = useContext(
+    ShowFavoriteListContext
   );
   const [keyword, setKeyword] = useState("");
-  const [favoriteList, setFavoriteList] = useState(false);
   const componentJustMounted = useRef(true);
 
   useEffect(() => {
@@ -54,6 +63,7 @@ const SearchBar = () => {
       try {
         const result = await getDataByKeyword(query, source);
         setCharacters(result);
+        setInitialCharacters(result);
       } catch (error) {
         if (isCancel(error)) {
           console.log(`request cancelled:${error}`);
@@ -64,7 +74,7 @@ const SearchBar = () => {
     };
     if (Object.values(query).length > 0) {
       getData();
-      setFavoriteList(false);
+      setShowFavoriteList(false);
     }
     componentJustMounted.current = false;
 
@@ -94,16 +104,16 @@ const SearchBar = () => {
   };
 
   const showFavoriteCharacters = () => {
-    if (!favoriteList) {
+    if (!showFavoriteList) {
       setCharacters(favoriteCharacters);
-      setFavoriteList(true);
+      setShowFavoriteList(true);
     } else {
       setCharacters(initialCharacters);
-      setFavoriteList(false);
+      setShowFavoriteList(false);
     }
   };
 
-  const customStyle = favoriteList
+  const customStyle = showFavoriteList
     ? {
         stroke: "black",
         strokeWidth: 25,
