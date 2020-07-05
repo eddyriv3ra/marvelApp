@@ -1,43 +1,14 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 import {
   CharactersContext,
   FavoriteCharactersContext,
   ShowFavoriteListContext,
 } from "../../Store";
 import { getDataByKeyword } from "../../services/apis";
-import styled from "styled-components";
-import { useHistory, useParams, useLocation } from "react-router-dom";
 import { CancelToken, isCancel } from "../../services/source";
+import { InputContainer, Icon, InputBar, Image } from "./SearchBarStyle";
 import Star from "../Star";
-
-const InputContainer = styled.div`
-  display: block;
-  position: relative;
-  width: 96%;
-  margin: 1rem;
-`;
-
-const Icon = styled.i`
-  position: absolute;
-  height: 1.5rem;
-  left: 8rem;
-  top: 0.5rem;
-  color: rgb(226, 226, 226);
-`;
-
-const InputBar = styled.input`
-  width: 100%;
-  height: 3rem;
-  font-size: 1.4rem;
-  padding-left: 12rem;
-`;
-
-const Image = styled.img`
-  width: 5rem;
-  position: absolute;
-  top: 0.5rem;
-  left: 1rem;
-`;
 
 const SearchBar = () => {
   const history = useHistory();
@@ -72,7 +43,7 @@ const SearchBar = () => {
         }
       }
     };
-    if (Object.values(query).length > 0) {
+    if (query.character.length > 0 || query.comic.length > 0) {
       getData();
       setShowFavoriteList(false);
     }
@@ -117,8 +88,8 @@ const SearchBar = () => {
     ? {
         stroke: "black",
         strokeWidth: 25,
-        fill: "black",
-        right: "1rem",
+        fill: "gray",
+        right: "2rem",
         top: "15%",
       }
     : {

@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import SearchBar from "./components/SearchBar";
 import CardsContainer from "./components/CardsContainer";
 import { GlobalStyle } from "./AppStyle";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 const App = () => {
   return (

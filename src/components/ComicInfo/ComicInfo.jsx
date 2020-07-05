@@ -1,31 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styled from "styled-components";
-
-const ComicImage = styled.img`
-  width: 30%;
-`;
-
-const ComicItem = styled.li`
-  padding-bottom: 20px;
-  display: flex;
-`;
-
-const ComicInfoData = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-left: 15px;
-`;
-const Description = styled.span`
-  padding-top: 2rem;
-`;
+import {
+  ComicImage,
+  ComicItem,
+  ComicInfoData,
+  Description,
+} from "./ComicInfoStyle";
 
 const ComicInfo = ({ comic }) => {
   return (
     <ComicItem>
       <ComicImage
         src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
-        alt=""
+        alt={`${comic.title}`}
       />
       <ComicInfoData>
         <span>{comic.title}</span>
@@ -39,6 +26,26 @@ const ComicInfo = ({ comic }) => {
   );
 };
 
-ComicInfo.propTypes = {};
+ComicInfo.propTypes = {
+  comic: PropTypes.shape({
+    thumbnail: PropTypes.shape({
+      path: PropTypes.string,
+      extension: PropTypes.string,
+    }),
+    title: PropTypes.string,
+    description: PropTypes.string,
+  }),
+};
+
+ComicInfo.defaultProps = {
+  comic: {
+    thumbnail: {
+      path: "",
+      extension: "",
+    },
+    title: "",
+    description: "",
+  },
+};
 
 export default ComicInfo;

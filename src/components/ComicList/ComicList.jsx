@@ -1,18 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import ComicInfo from "../ComicInfo";
-import styled from "styled-components";
-
-const List = styled.ul`
-  list-style-type: none;
-  padding: 0;
-  overflow-y: scroll;
-`;
-
-const ListContainer = styled.div`
-  height: 85%;
-  overflow-y: auto;
-`;
+import { ListContainer, List } from "./ComicListStyle";
 
 const ComicList = ({ comics }) => {
   return (
@@ -26,6 +15,8 @@ const ComicList = ({ comics }) => {
   );
 };
 
-ComicList.propTypes = {};
+ComicList.propTypes = {
+  comics: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.object])),
+};
 
 export default ComicList;

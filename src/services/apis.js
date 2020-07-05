@@ -5,8 +5,6 @@ const hash =
 
 const marvelUrl = "https://gateway.marvel.com:443/v1/public/characters";
 const comicUrl = "https://gateway.marvel.com:443/v1/public/comics";
-const lala =
-  "https://gateway.marvel.com:443/v1/public/comics/70718?apikey=508dfef6ad8ecc046b84be570d8ab372";
 
 export const getInitialData = async () => {
   const offset = Math.floor(Math.random() * 1485) + 1;
@@ -21,7 +19,6 @@ export const getDataByKeyword = async (keyword, source) => {
     const comicAPI = `${comicUrl}/${comic}?${hash}`;
     const getComic = () => axios.get(comicAPI);
     const result = await getComic();
-    console.log(result.data.data.results);
     return result.data.data.results;
   } else {
     const charactersAPI = `${marvelUrl}?nameStartsWith=${character}${hash}`;
@@ -37,8 +34,6 @@ export const getDataByKeyword = async (keyword, source) => {
       });
 
     const result = await axios.all([getCharacters(), getComic()]);
-
-    console.log(result);
 
     const mergeResults = [
       ...result[0].data.data.results,

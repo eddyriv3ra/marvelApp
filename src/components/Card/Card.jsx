@@ -66,6 +66,9 @@ Card.propTypes = {
     path: PropTypes.string,
   }),
   name: PropTypes.string,
+  characterId: PropTypes.number,
+  handleClick: PropTypes.func,
+  favoriteCharacters: PropTypes.array,
 };
 
 Card.defaultProps = {
@@ -74,6 +77,9 @@ Card.defaultProps = {
     path: "",
   },
   name: "",
+  characterId: 0,
+  handleClick: () => {},
+  favoriteCharacters: [],
 };
 
 export default Card;

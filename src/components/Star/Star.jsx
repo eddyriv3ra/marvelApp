@@ -1,18 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styled from "styled-components";
-
-const SVGIcon = styled.svg`
-  position: absolute;
-  top: ${(props) => props.styleProps.top};
-  right: ${(props) => props.styleProps.right};
-  fill: ${(props) => props.styleProps.fill};
-  stroke: ${(props) => props.styleProps.stroke};
-  stroke-width: ${(props) => props.styleProps.strokeWidth};
-  &:hover {
-    cursor: pointer;
-  }
-`;
+import { SVGIcon } from "./StarStyle";
 
 const Star = (props) => {
   const handleClick = (e) => {

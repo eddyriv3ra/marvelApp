@@ -1,8 +1,6 @@
 import React, { useEffect, useContext } from "react";
-import styled from "styled-components";
-import PropTypes from "prop-types";
 import Card from "../Card";
-import { useHistory, useParams, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import {
   CharactersContext,
   FavoriteCharactersContext,
@@ -10,24 +8,14 @@ import {
 } from "../../Store";
 import { getInitialData } from "../../services/apis";
 import SingleComic from "../SingleComic";
+import { CardsContainerStyle } from "./CardsContainerStyle";
 
-const CardsContainerStyle = styled.div`
-  height: 55rem;
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-  padding-top: 3rem;
-  flex-wrap: wrap;
-`;
-
-const CardsContainer = (props) => {
+const CardsContainer = () => {
   const [characters, setCharacters] = useContext(CharactersContext);
   const [favoriteCharacters, setFavoriteCharacters] = useContext(
     FavoriteCharactersContext
   );
-  const [showFavoriteList, setShowFavoriteList] = useContext(
-    ShowFavoriteListContext
-  );
+  const [showFavoriteList] = useContext(ShowFavoriteListContext);
   const { search } = useLocation();
   const isURLSearch = search.includes("comic");
 
@@ -75,7 +63,5 @@ const CardsContainer = (props) => {
 
   return <CardsContainerStyle>{render}</CardsContainerStyle>;
 };
-
-CardsContainer.propTypes = {};
 
 export default CardsContainer;

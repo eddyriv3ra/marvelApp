@@ -21,7 +21,7 @@ export const Name = styled.span`
   position: absolute;
   bottom: 1rem;
   left: 1rem;
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: white;
   font-weight: bold;
 `;
