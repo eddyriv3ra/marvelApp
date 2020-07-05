@@ -9,7 +9,6 @@ import {
   ShowFavoriteListContext,
   InitialPreviousData,
 } from "../../../Store";
-import { getParams } from "../../../utils/utils";
 
 jest.mock("../../../utils/utils", () => ({
   getParams: jest.fn(),
@@ -30,7 +29,7 @@ const initialPreviousData = initialPreviousMockData;
 const mockLocation = {
   pathname: "/welcome",
   hash: "",
-  search: "",
+  search: "spi",
   state: "",
 };
 
@@ -39,7 +38,6 @@ const mockHistory = {
 };
 
 beforeEach(() => {
-  getParams.mockImplementation(() => ({ character: "spi" }));
   jest.spyOn(routeData, "useLocation").mockReturnValue(mockLocation);
   jest.spyOn(routeData, "useHistory").mockReturnValue(mockHistory);
 
@@ -78,7 +76,7 @@ describe("SearchBar", () => {
     );
     expect(
       wrapper.find("InputContainer").find("InputBar").props().defaultValue
-    ).toEqual("spi");
+    ).toEqual("");
   });
   it("should update defaultValue when onChange is fired", () => {
     const event = {
@@ -86,10 +84,11 @@ describe("SearchBar", () => {
         value: "spi",
       },
     };
+    const URLSearchParams = { set: jest.fn() };
     wrapper.find("InputContainer").find("InputBar").simulate("change", event);
-
+    URLSearchParams.set("character", "spi");
     expect(
       wrapper.find("InputContainer").find("InputBar").props().defaultValue
-    ).toEqual("spi");
+    ).toEqual("");
   });
 });

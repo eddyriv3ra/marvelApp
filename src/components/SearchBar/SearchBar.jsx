@@ -10,7 +10,6 @@ import { getDataByKeyword } from "../../services/apis";
 import { CancelToken, isCancel } from "../../services/source";
 import { InputContainer, Icon, InputBar, Image } from "./SearchBarStyle";
 import Star from "../Star";
-import { getParams } from "../../utils/utils";
 
 InputContainer.displayName = "InputContainer";
 Icon.displayName = "Icon";
@@ -31,7 +30,7 @@ const SearchBar = () => {
   const [keyword, setKeyword] = useState("");
 
   useEffect(() => {
-    const query = getParams(search);
+    const query = getParams();
     const source = CancelToken.source();
     const getData = async () => {
       try {
@@ -66,6 +65,14 @@ const SearchBar = () => {
       history.replace(`/?character=${searchKeyword}`);
       setKeyword(searchKeyword);
     }
+  };
+
+  const getParams = () => {
+    const searchParams = new URLSearchParams(search);
+    return {
+      character: searchParams.get("character") || "",
+      comic: searchParams.get("comic") || "",
+    };
   };
 
   const showFavoriteCharacters = () => {
