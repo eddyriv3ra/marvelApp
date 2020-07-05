@@ -7,6 +7,10 @@ import {
   Description,
 } from "./ComicInfoStyle";
 
+ComicImage.displayName = "ComicImage";
+ComicInfoData.displayName = "ComicInfoData";
+Description.displayName = "Description";
+
 const ComicInfo = ({ comic }) => {
   return (
     <ComicItem>

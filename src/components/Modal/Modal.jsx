@@ -4,6 +4,9 @@ import { getComicsByCharaterId } from "../../services/apis";
 import ComicList from "../ComicList";
 import { Wrapper, ModalBox, Times, Title, TitleContainer } from "./ModalStyles";
 
+Title.displayName = "Title";
+Times.displayName = "Times";
+
 const Modal = ({ title, closePopup, characterId }) => {
   const [comics, setComics] = useState([]);
 

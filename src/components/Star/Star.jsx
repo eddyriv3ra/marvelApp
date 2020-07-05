@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { SVGIcon } from "./StarStyle";
 
+SVGIcon.displayName = "svg";
+
 const Star = (props) => {
   const handleClick = (e) => {
     e.stopPropagation();

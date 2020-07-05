@@ -10,10 +10,15 @@ import {
   Description,
 } from "./SingleComicStyle";
 
+Title.displayName = "Title";
+InfoContainer.displayName = "InfoContainer";
+Description.displayName = "Description";
+Info.displayName = "Info";
+
 const SingleComic = () => {
   const [comicData] = useContext(CharactersContext);
-  const comic = comicData[0];
-  const onSaleDate = comic.dates.find((date) => date.type === "onsaleDate");
+  const { dates, creators, thumbnail, description, title } = comicData;
+  const onSaleDate = dates.find((date) => date.type === "onsaleDate");
 
   const creatorsIndexValues = [
     "colorist (cover)",
@@ -21,7 +26,7 @@ const SingleComic = () => {
     "writer",
   ];
 
-  const creators = comic.creators.items.reduce((acc, currentValue) => {
+  const creatorsValue = creators.items.reduce((acc, currentValue) => {
     if (creatorsIndexValues.some((value) => currentValue.role === value)) {
       const role = currentValue.role;
       const name = currentValue.name;
@@ -32,21 +37,22 @@ const SingleComic = () => {
 
   return (
     <SingleCardContainer>
-      <Thumbnail
-        src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
-        alt=""
-      />
+      <Thumbnail src={`${thumbnail.path}.${thumbnail.extension}`} alt="comic" />
       <InfoContainer>
-        <Title>{comic.title}</Title>
+        <Title>{title}</Title>
         <Info>Published: {moment(onSaleDate.date).format("MMM D, YYYY")}</Info>
-        {creators.map((creator) => {
+        {creatorsValue.map((creator) => {
           return (
-            <Info>
+            <Info key={creator.role}>
               {creator.role}: {creator.name}
             </Info>
           );
         })}
-        <Description>{comic.description}</Description>
+        {description ? (
+          <Description>{description}</Description>
+        ) : (
+          <Description>No Description available</Description>
+        )}
       </InfoContainer>
     </SingleCardContainer>
   );

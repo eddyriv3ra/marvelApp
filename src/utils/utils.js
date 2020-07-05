@@ -28,3 +28,11 @@ export const useLocalStorage = (key, initialValue) => {
   };
   return [storedValue, setFavoriteCharacters];
 };
+
+export const getParams = (search) => {
+  const searchParams = new URLSearchParams(search);
+  return {
+    character: searchParams.get("character") || "",
+    comic: searchParams.get("comic") || "",
+  };
+};

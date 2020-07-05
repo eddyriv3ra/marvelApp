@@ -1,40 +1,43 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import {
   CharactersContext,
   FavoriteCharactersContext,
   ShowFavoriteListContext,
+  InitialPreviousData,
 } from "../../Store";
 import { getDataByKeyword } from "../../services/apis";
 import { CancelToken, isCancel } from "../../services/source";
 import { InputContainer, Icon, InputBar, Image } from "./SearchBarStyle";
 import Star from "../Star";
+import { getParams } from "../../utils/utils";
+
+InputContainer.displayName = "InputContainer";
+Icon.displayName = "Icon";
+InputBar.displayName = "InputBar";
 
 const SearchBar = () => {
   const history = useHistory();
   const { search } = useLocation();
 
-  const [_, setCharacters] = useContext(CharactersContext);
-  const [
-    favoriteCharacters,
-    ,
-    initialCharacters,
-    setInitialCharacters,
-  ] = useContext(FavoriteCharactersContext);
+  const [, setCharacters] = useContext(CharactersContext);
+  const [initialPreviousData, setInitialPreviousData] = useContext(
+    InitialPreviousData
+  );
+  const [favoriteCharacters] = useContext(FavoriteCharactersContext);
   const [showFavoriteList, setShowFavoriteList] = useContext(
     ShowFavoriteListContext
   );
   const [keyword, setKeyword] = useState("");
-  const componentJustMounted = useRef(true);
 
   useEffect(() => {
-    const query = getParams();
+    const query = getParams(search);
     const source = CancelToken.source();
     const getData = async () => {
       try {
         const result = await getDataByKeyword(query, source);
         setCharacters(result);
-        setInitialCharacters(result);
+        setInitialPreviousData(result);
       } catch (error) {
         if (isCancel(error)) {
           console.log(`request cancelled:${error}`);
@@ -47,7 +50,6 @@ const SearchBar = () => {
       getData();
       setShowFavoriteList(false);
     }
-    componentJustMounted.current = false;
 
     return () => {
       source.cancel();
@@ -66,20 +68,12 @@ const SearchBar = () => {
     }
   };
 
-  const getParams = () => {
-    const searchParams = new URLSearchParams(search);
-    return {
-      character: searchParams.get("character") || "",
-      comic: searchParams.get("comic") || "",
-    };
-  };
-
   const showFavoriteCharacters = () => {
     if (!showFavoriteList) {
       setCharacters(favoriteCharacters);
       setShowFavoriteList(true);
     } else {
-      setCharacters(initialCharacters);
+      setCharacters(initialPreviousData);
       setShowFavoriteList(false);
     }
   };

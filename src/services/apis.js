@@ -19,7 +19,7 @@ export const getDataByKeyword = async (keyword, source) => {
     const comicAPI = `${comicUrl}/${comic}?${hash}`;
     const getComic = () => axios.get(comicAPI);
     const result = await getComic();
-    return result.data.data.results;
+    return result.data.data.results[0];
   } else {
     const charactersAPI = `${marvelUrl}?nameStartsWith=${character}${hash}`;
     const comicAPI = `${comicUrl}?titleStartsWith=${character}${hash}`;

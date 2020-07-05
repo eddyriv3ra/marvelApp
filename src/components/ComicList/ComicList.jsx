@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import ComicInfo from "../ComicInfo";
 import { ListContainer, List } from "./ComicListStyle";
 
+List.displayName = "List";
+
 const ComicList = ({ comics }) => {
   return (
     <ListContainer>

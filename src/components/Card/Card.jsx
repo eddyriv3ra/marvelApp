@@ -5,6 +5,11 @@ import Modal from "../Modal";
 import Star from "../Star";
 import { CardComponent, Thumbnail, Name } from "./CardStyle";
 
+Thumbnail.displayName = "Thumbnail";
+Name.displayName = "Name";
+Star.displayName = "Star";
+CardComponent.displayName = "CardComponent";
+
 const Card = ({
   thumbnail,
   name,

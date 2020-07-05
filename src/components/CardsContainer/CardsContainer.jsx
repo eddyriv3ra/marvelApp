@@ -10,6 +10,8 @@ import { getInitialData } from "../../services/apis";
 import SingleComic from "../SingleComic";
 import { CardsContainerStyle } from "./CardsContainerStyle";
 
+CardsContainerStyle.displayName = "CardsContainerStyle";
+
 const CardsContainer = () => {
   const [characters, setCharacters] = useContext(CharactersContext);
   const [favoriteCharacters, setFavoriteCharacters] = useContext(
@@ -43,7 +45,7 @@ const CardsContainer = () => {
   };
 
   const render =
-    !isURLSearch || showFavoriteList
+    (!isURLSearch || showFavoriteList) && Array.isArray(characters)
       ? characters.map((character) => {
           const Title = character.name ? character.name : character.title;
 
@@ -58,8 +60,7 @@ const CardsContainer = () => {
             />
           );
         })
-      : characters.length > 0 &&
-        characters[0].format === "Comic" && <SingleComic />;
+      : !Array.isArray(characters) && <SingleComic />;
 
   return <CardsContainerStyle>{render}</CardsContainerStyle>;
 };
