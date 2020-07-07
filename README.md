@@ -7,13 +7,13 @@ You can also search using a marvel comic url, for example: https://www.marvel.co
 Click on the characters to get comic info.
 You can also type on the browser search bar to search for characters, ex: https://marvel-app-five.vercel.app/?character=spider
 
-# Online Demo
+### Online Demo
 
 This app is hosted by vercel
 
 [Marvel App](https://marvel-app-five.vercel.app/?character=ha) 
 
-# Installation
+### Installation
 
 To install the application follow the steps below in the console, you need to have installed nodejs, git and npm.
 
