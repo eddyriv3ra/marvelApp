@@ -2,7 +2,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 # Marvel App
 
-This proyect uses marvel Api, tupe in the search bar to get a character and also comics that start with the input value, save favorite chracters in localStorage.
+This proyect uses marvel API, type in the search bar to get a character and also comics that start with the input value, save favorite characters in localStorage.
 You can also search using a marvel comic url, for example: https://www.marvel.com/comics/issue/79799/strange_academy_2020_2
 Click on the characters to get comic info.
 You can also type on the browser search bar to search for characters, ex: https://marvel-app-five.vercel.app/?character=spider
@@ -11,7 +11,7 @@ You can also type on the browser search bar to search for characters, ex: https:
 
 This app is hosted by vercel
 
-[Marvel App](https://marvel-app-five.vercel.app/?character=ha) 
+[Marvel App](https://marvel-app-five.vercel.app) 
 
 ### Installation
 
